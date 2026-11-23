@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Приглашение на свадьбу — 17.07.2027</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Cormorant+Garamond:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family: 'Cormorant Garamond', serif;
+    background: linear-gradient(160deg, #fdf6f0 0%, #f7ece4 45%, #f3e2d8 100%);
+    color: #4a3b34;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .section { max-width: 720px; margin: 0 auto; padding: 70px 24px; text-align: center; }
+
+  /* ---------- Hero ---------- */
+  .hero { min-height: 100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; position:relative; }
+  .leaf { position:absolute; opacity:.14; font-size: 42px; animation: sway 6s ease-in-out infinite; }
+  .l1{top:8%;left:8%} .l2{top:14%;right:12%;animation-delay:1.5s} .l3{bottom:12%;left:14%;animation-delay:3s} .l4{bottom:18%;right:8%;animation-delay:2.2s}
+  @keyframes sway { 0%,100%{transform:rotate(-8deg) translateY(0)} 50%{transform:rotate(8deg) translateY(-8px)} }
+  .names {
+    font-family: 'Great Vibes', cursive;
+    font-size: clamp(52px, 12vw, 96px);
+    color: #a0766a;
+    line-height: 1.1;
+    animation: fadeUp 1.4s ease both;
+  }
+  .amp { font-family:'Playfair Display', serif; font-style: italic; font-size:.5em; color:#c2a08f; margin: 0 10px; }
+  .hero-sub { margin-top: 18px; letter-spacing: 6px; text-transform: uppercase; font-size: 14px; color:#8a7368; animation: fadeUp 1.4s .3s ease both; }
+  .hero-date { font-family:'Playfair Display', serif; font-size: clamp(28px,6vw,42px); margin-top: 14px; color:#4a3b34; animation: fadeUp 1.4s .6s ease both; }
+  .divider { width: 70px; height:1px; background:#c9a893; margin: 26px auto; animation: fadeUp 1.4s .8s ease both; }
+  @keyframes fadeUp { from{opacity:0; transform:translateY(24px)} to{opacity:1; transform:translateY(0)} }
+
+  /* ---------- Countdown ---------- */
+  .count-grid { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; margin-top:34px; }
+  .cell {
+    background:#fff; border:1px solid #e8d5c6; border-radius:14px;
+    padding: 20px 10px; min-width: 92px;
+    box-shadow: 0 8px 24px rgba(160,118,106,.10);
+  }
+  .num { font-family:'Playfair Display', serif; font-size: 40px; color:#a0766a; }
+  .lbl { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color:#8a7368; margin-top: 6px; }
+
+  h2 { font-family:'Playfair Display', serif; font-weight:600; font-size: clamp(26px,5vw,34px); color:#a0766a; letter-spacing:1px; }
+  .ornament { color:#c2a08f; font-size: 20px; letter-spacing: 8px; margin-bottom: 14px; }
+
+  /* ---------- Details ---------- */
+  .cards { display:grid; gap:18px; margin-top:40px; }
+  .card { background:#fff; border:1px solid #e8d5c6; border-radius:16px; padding:30px 24px; box-shadow:0 8px 24px rgba(160,118,106,.08); }
+  .card h3 { font-family:'Playfair Display', serif; color:#a0766a; font-size:22px; margin-bottom:10px; }
+  .card p { font-size:18px; line-height:1.6; }
+  .card .icon { font-size: 28px; margin-bottom: 10px; }
+
+  /* ---------- RSVP ---------- */
+  .btn {
+    display:inline-block; margin-top: 30px;
+    background: #a0766a; color:#fff; text-decoration:none;
+    font-size: 16px; letter-spacing: 2px; text-transform: uppercase;
+    padding: 16px 44px; border-radius: 40px;
+    transition: background .3s, transform .2s;
+  }
+  .btn:hover { background:#8a5f54; transform: translateY(-2px); }
+
+  footer { padding: 30px; text-align:center; color:#b09a8d; font-size:14px; letter-spacing:1px; }
+  .reveal { opacity:0; transform: translateY(30px); transition: all 1s ease; }
+  .reveal.on { opacity:1; transform: translateY(0); }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <span class="leaf l1">🌿</span><span class="leaf l2">🍃</span><span class="leaf l3">🌿</span><span class="leaf l4">🍃</span>
+  <div class="names"><span id="n1">Имя жениха</span><span class="amp">&amp;</span><span id="n2">Имя невесты</span></div>
+  <div class="divider"></div>
+  <div class="hero-sub">Приглашение на свадьбу</div>
+  <div class="hero-date">17 июля 2027</div>
+</section>
+
+<section class="section">
+  <div class="ornament">❋ ❋ ❋</div>
+  <h2 class="reveal">До нашего дня осталось</h2>
+  <div class="count-grid reveal" id="countdown">
+    <div class="cell"><div class="num" id="d">—</div><div class="lbl">дней</div></div>
+    <div class="cell"><div class="num" id="h">—</div><div class="lbl">часов</div></div>
+    <div class="cell"><div class="num" id="m">—</div><div class="lbl">минут</div></div>
+    <div class="cell"><div class="num" id="s">—</div><div class="lbl">секунд</div></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="ornament">❋ ❋ ❋</div>
+  <h2>Программа дня</h2>
+  <div class="cards">
+    <div class="card"><div class="icon">⏰</div><h3>15:30 — Сбор гостей</h3><p>Ждём вас к началу церемонии</p></div>
+    <div class="card"><div class="icon">💍</div><h3>16:00 — Церемония</h3><p>Самый важный момент нашей истории</p></div>
+    <div class="card"><div class="icon">🥂</div><h3>18:00 — Банкет</h3><p>Ужин, тосты, танцы до самого вечера</p></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="ornament">❋ ❋ ❋</div>
+  <h2>Место проведения</h2>
+  <div class="cards">
+    <div class="card"><div class="icon">📍</div><h3>Название площадки</h3><p>Город, улица и номер дома<br><a href="https://yandex.ru/maps" target="_blank" style="color:#a0766a">Открыть на карте</a></p></div>
+    <div class="card"><div class="icon">🏨</div><h3>Где остановиться</h3><p>Рядом с площадкой есть отели — подробности по запросу, будем рады подсказать!</p></div>
+  </div>
+</section>
+
+<section class="section reveal">
+  <div class="ornament">❋ ❋ ❋</div>
+  <h2>Подтвердите присутствие</h2>
+  <p style="font-size:18px; margin-top:16px;">Пожалуйста, дайте нам знать до <b>1 июня 2027</b> — будем счастливы видеть вас!</p>
+  <a class="btn" href="https://t.me/" target="_blank">Написать нам</a>
+</section>
+
+<footer>С любовью, будущие молодожёны 💛 17.07.2027</footer>
+
+<script>
+  const target = new Date('2027-07-17T16:00:00+06:00');
+  function tick(){
+    let diff = target - new Date();
+    if (diff < 0) diff = 0;
+    const d = Math.floor(diff/86400000),
+          h = Math.floor(diff/3600000)%24,
+          m = Math.floor(diff/60000)%60,
+          s = Math.floor(diff/1000)%60;
+    document.getElementById('d').textContent = d;
+    document.getElementById('h').textContent = h;
+    document.getElementById('m').textContent = m;
+    document.getElementById('s').textContent = s;
+  }
+  tick(); setInterval(tick, 1000);
+
+  const io = new IntersectionObserver(es => es.forEach(e => { if(e.isIntersecting) e.target.classList.add('on'); }));
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
+</body>
+</html>
