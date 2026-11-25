@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Опрос: что будете пить на свадьбе?</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #faf6f0;
+    --blush: #f3e3dd;
+    --gold: #c9a227;
+    --rose: #c98d8d;
+    --ink: #4a3f3a;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    background-image:
+      radial-gradient(circle at 10% 20%, rgba(201,141,141,.12) 0%, transparent 40%),
+      radial-gradient(circle at 90% 80%, rgba(201,162,39,.10) 0%, transparent 40%);
+  }
+  .card {
+    background: #fff;
+    max-width: 640px;
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(74,63,58,.12);
+    padding: 48px 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--rose), var(--gold), var(--rose));
+  }
+  .floral {
+    font-size: 42px;
+    margin-bottom: 8px;
+  }
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 34px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 4px;
+  }
+  .subtitle {
+    font-weight: 300;
+    color: #8a7d76;
+    margin-bottom: 32px;
+  }
+  .name-input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #e4d8d2;
+    border-radius: 12px;
+    font-size: 16px;
+    font-family: 'Montserrat', sans-serif;
+    margin-bottom: 24px;
+    outline: none;
+    transition: border-color .2s;
+    background: var(--cream);
+  }
+  .name-input:focus { border-color: var(--gold); }
+  .options { display: grid; gap: 14px; text-align: left; }
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 15px 18px;
+    border: 1.5px solid #eee2dc;
+    border-radius: 14px;
+    cursor: pointer;
+    background: #fff;
+    transition: all .2s;
+  }
+  .option:hover { border-color: var(--rose); background: #fdf8f6; }
+  .option.selected {
+    border-color: var(--gold);
+    background: #fdf6e8;
+  }
+  .option input { display: none; }
+  .emoji { font-size: 28px; }
+  .label { font-size: 16px; font-weight: 400; }
+  .label b { font-weight: 600; }
+  .check {
+    margin-left: auto;
+    width: 22px; height: 22px;
+    border: 1.5px solid #d9c8c1;
+    border-radius: 50%;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .option.selected .check { border-color: var(--gold); background: var(--gold); }
+  .option.selected .check::after {
+    content: "✓";
+    color: #fff;
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -52%);
+    font-size: 13px;
+    font-weight: 700;
+  }
+  .btn {
+    margin-top: 28px;
+    width: 100%;
+    padding: 16px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: .5px;
+    color: #fff;
+    background: linear-gradient(135deg, var(--rose), #b07777);
+    border: none;
+    border-radius: 14px;
+    cursor: pointer;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(201,141,141,.4); }
+  .btn:disabled { opacity: .5; cursor: not-allowed; transform: none; box-shadow: none; }
+  .results { display: none; }
+  .thanks {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .bar-row { margin-bottom: 18px; text-align: left; }
+  .bar-label { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 15px; }
+  .bar-track { height: 12px; background: var(--cream); border-radius: 10px; overflow: hidden; }
+  .bar-fill {
+    height: 100%;
+    border-radius: 10px;
+    background: linear-gradient(90deg, var(--rose), var(--gold));
+    width: 0;
+    transition: width .8s ease;
+  }
+  .reset-link {
+    margin-top: 28px;
+    display: inline-block;
+    color: #b09a92;
+    font-size: 14px;
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  .note { font-size: 13px; color: #a79a93; margin-top: 20px; }
+  @media (max-width: 480px) {
+    .card { padding: 32px 22px; }
+    h1 { font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+  <div class="card">
+    <!-- Форма опроса -->
+    <div id="form">
+      <div class="floral">💐</div>
+      <h1>Анна & Дмитрий</h1>
+      <p class="subtitle">14 августа 2027 · Усадьба «Лебяжий берег»</p>
+      <h2>Что будете пить на празднике?</h2>
+      <p class="subtitle" style="margin-bottom:24px">Ваш ответ поможет нам всё рассчитать и ничего не забыть 🥂</p>
+
+      <input type="text" class="name-input" id="guestName" placeholder="Ваше имя и фамилия" maxlength="60">
+
+      <div class="options" id="options"></div>
+
+      <button class="btn" id="submitBtn" disabled>Отправить ответ</button>
+      <p class="note">Ответ можно отправить один раз с этого устройства</p>
+    </div>
+
+    <!-- Результаты -->
+    <div class="results" id="results">
+      <div class="floral">🥂</div>
+      <div class="thanks" id="thanksMsg">Спасибо за ответ!</div>
+      <p class="subtitle">Так проголосовали гости:</p>
+      <div id="bars"></div>
+      <span class="reset-link" onclick="resetVote()">Сменить ответ</span>
+    </div>
+  </div>
+
+<script>
+  const DRINKS = [
+    { emoji: "🍾", label: "Игристое и шампанское", key: "champagne" },
+    { emoji: "🍷", label: "Вино <b>красное</b>", key: "red_wine" },
+    { emoji: "🥂", label: "Вино <b>белое</b>", key: "white_wine" },
+    { emoji: "🥃", label: "Крепкое: водка, коньяк, виски", key: "spirits" },
+    { emoji: "🍺", label: "Пиво и сидр", key: "beer" },
+    { emoji: "🍹", label: "Коктейли", key: "cocktails" },
+    { emoji: "🍋", label: "Лимонады и морсы (без алкоголя)", key: "soft" },
+    { emoji: "☕", label: "Кофе и чай", key: "hot" }
+  ];
+
+  const KEY = "wedding_drink_poll";
+
+  function loadVotes() {
+    try { return JSON.parse(localStorage.getItem(KEY)) || { votes: [], counts: {} }; }
+    catch (e) { return { votes: [], counts: {} }; }
+  }
+  function saveVotes(data) { localStorage.setItem(KEY, JSON.stringify(data)); }
+
+  let selected = null;
+  const optionsEl = document.getElementById("options");
+  const submitBtn = document.getElementById("submitBtn");
+
+  DRINKS.forEach(d => {
+    const div = document.createElement("label");
+    div.className = "option";
+    div.innerHTML = `<span class="emoji">${d.emoji}</span><span class="label">${d.label}</span><span class="check"></span>`;
+    div.onclick = () => {
+      document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+      div.classList.add("selected");
+      selected = d.key;
+      submitBtn.disabled = false;
+    };
+    optionsEl.appendChild(div);
+  });
+
+  submitBtn.onclick = () => {
+    const name = document.getElementById("guestName").value.trim();
+    if (!selected) return;
+    if (!name) { document.getElementById("guestName").focus(); return; }
+    const data = loadVotes();
+    // если человек уже голосовал с этого устройства — перезаписываем
+    const prev = data.votes.find(v => v.device === "me");
+    if (prev) { data.counts[prev.drink] = Math.max(0, (data.counts[prev.drink] || 0) - 1); prev.drink = selected; prev.name = name; }
+    else { data.votes.push({ device: "me", name: name, drink: selected }); }
+    data.counts[selected] = (data.counts[selected] || 0) + 1;
+    saveVotes(data);
+    showResults();
+  };
+
+  function showResults() {
+    document.getElementById("form").style.display = "none";
+    document.getElementById("results").style.display = "block";
+    const data = loadVotes();
+    const me = data.votes.find(v => v.device === "me");
+    if (me) {
+      const d = DRINKS.find(x => x.key === me.drink);
+      document.getElementById("thanksMsg").textContent = `Спасибо, ${me.name}! Вы выбрали: ${d ? d.emoji + " " + d.label.replace(/<[^>]+>/g, "") : ""}`;
+    }
+    renderBars(data.counts);
+  }
+
+  function renderBars(counts) {
+    const barsEl = document.getElementById("bars");
+    barsEl.innerHTML = "";
+    const total = Object.values(counts).reduce((a, b) => a + b, 0);
+    const sorted = [...DRINKS].sort((a, b) => (counts[b.key] || 0) - (counts[a.key] || 0));
+    sorted.forEach(d => {
+      const n = counts[d.key] || 0;
+      const pct = total ? Math.round(n / total * 100) : 0;
+      const row = document.createElement("div");
+      row.className = "bar-row";
+      row.innerHTML = `
+        <div class="bar-label"><span>${d.emoji} ${d.label.replace(/<[^>]+>/g, "")}</span><span>${n} · ${pct}%</span></div>
+        <div class="bar-track"><div class="bar-fill" data-w="${pct}"></div></div>`;
+      barsEl.appendChild(row);
+    });
+    requestAnimationFrame(() => {
+      document.querySelectorAll(".bar-fill").forEach(f => f.style.width = f.dataset.w + "%");
+    });
+  }
+
+  function resetVote() {
+    const data = loadVotes();
+    const me = data.votes.find(v => v.device === "me");
+    if (me) {
+      data.counts[me.drink] = Math.max(0, (data.counts[me.drink] || 0) - 1);
+      data.votes = data.votes.filter(v => v.device !== "me");
+      saveVotes(data);
+    }
+    document.getElementById("results").style.display = "none";
+    document.getElementById("form").style.display = "block";
+    selected = null;
+    submitBtn.disabled = true;
+    document.querySelectorAll(".option").forEach(o => o.classList.remove("selected"));
+    document.getElementById("guestName").value = "";
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  // если на устройстве уже голосовали — сразу показываем результаты
+  if (loadVotes().votes.some(v => v.device === "me")) showResults();
+</script>
+</body>
+</html>
